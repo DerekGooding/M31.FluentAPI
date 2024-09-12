@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -18,21 +17,17 @@
     <PackageIcon>fluent-api-logo-128.jpg</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\M31.FluentApi.Generator\M31.FluentApi.Generator.csproj" PrivateAssets="contentfiles;build" SetTargetFramework="TargetFramework=netstandard2.0"/>
+    <ProjectReference Include="..\M31.FluentApi.Generator\M31.FluentApi.Generator.csproj" PrivateAssets="contentfiles;build" SetTargetFramework="TargetFramework=netstandard2.0" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
-    <None Include="../../media/fluent-api-logo-128.jpg" Pack="true" Visible="false" PackagePath="/"/>
-    <None Include="../../README.md" Pack="true" Visible="true" PackagePath="/"/>
+    <None Include="../../media/fluent-api-logo-128.jpg" Pack="true" Visible="false" PackagePath="/" />
+    <None Include="../../README.md" Pack="true" Visible="true" PackagePath="/" />
   </ItemGroup>
-
 </Project>
