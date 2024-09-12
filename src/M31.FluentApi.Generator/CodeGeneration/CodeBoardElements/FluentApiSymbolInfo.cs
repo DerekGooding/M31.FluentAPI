@@ -18,23 +18,13 @@ internal abstract class FluentApiSymbolInfo
     internal Accessibility Accessibility { get; }
     internal bool RequiresReflection { get; }
 
-    protected bool Equals(FluentApiSymbolInfo other)
-    {
-        return Name == other.Name &&
+    protected bool Equals(FluentApiSymbolInfo other) 
+        => Name == other.Name &&
                Accessibility == other.Accessibility &&
                RequiresReflection == other.RequiresReflection;
-    }
 
     public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((FluentApiSymbolInfo)obj);
-    }
+        => obj is not null && (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((FluentApiSymbolInfo)obj)));
 
-    public override int GetHashCode()
-    {
-        return new HashCode().Add(Name, Accessibility, RequiresReflection);
-    }
+    public override int GetHashCode() => new HashCode().Add(Name, Accessibility, RequiresReflection);
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <LangVersion>10.0</LangVersion>
@@ -18,7 +18,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\M31.FluentApi.Generator\M31.FluentApi.Generator.csproj" PrivateAssets="contentfiles;build" SetTargetFramework="TargetFramework=netstandard2.0" />
+    <ProjectReference Include="..\M31.FluentApi.Generator\M31.FluentApi.Generator.csproj" PrivateAssets="contentfiles;build" SetTargetFramework="TargetFramework=net8.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">

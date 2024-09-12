@@ -20,15 +20,15 @@ namespace PersonExample1
     [FluentApi]
     public class Person
     {
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public string? HouseNumber { get; private set; }
+        public string? HouseNumber { get; }
 
-        public string? Street { get; private set; }
+        public string? Street { get; }
 
-        public string? City { get; private set; }
+        public string? City { get; }
 
-        public bool IsDigitalNomad { get; private set; }
+        public bool IsDigitalNomad { get; }
     }
 }
 
@@ -49,7 +49,7 @@ namespace PersonExample2
     public class Person
     {
         [FluentMember(0)]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public string? HouseNumber { get; private set; }
 
@@ -70,29 +70,17 @@ namespace PersonExample2
         {
         }
 
-            [FluentMethod(2)]
-            private void WithHouseNumber(string houseNumber)
-            {
-                HouseNumber = houseNumber;
-            }
+        [FluentMethod(2)]
+        private void WithHouseNumber(string houseNumber) => HouseNumber = houseNumber;
 
-            [FluentMethod(3)]
-            private void WithStreet(string street)
-            {
-                Street = street;
-            }
+        [FluentMethod(3)]
+        private void WithStreet(string street) => Street = street;
 
-            [FluentMethod(4)]
-            private void InCity(string city)
-            {
-                City = city;
-            }
+        [FluentMethod(4)]
+        private void InCity(string city) => City = city;
 
         [FluentMethod(1)]
-        private void WhoIsADigitalNomad()
-        {
-            IsDigitalNomad = true;
-        }
+        private void WhoIsADigitalNomad() => IsDigitalNomad = true;
     }
 
     public static class Usage
@@ -120,7 +108,7 @@ namespace PersonExample3
     public class Person
     {
         [FluentMember(0)]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public string? HouseNumber { get; private set; }
 
@@ -141,37 +129,22 @@ namespace PersonExample3
         {
         }
 
-            [FluentMethod(2)]
-            private void WithHouseNumber(string houseNumber)
-            {
-                HouseNumber = houseNumber;
-            }
+        [FluentMethod(2)]
+        private void WithHouseNumber(string houseNumber) => HouseNumber = houseNumber;
 
-            [FluentMethod(3)]
-            private void WithStreet(string street)
-            {
-                Street = street;
-            }
+        [FluentMethod(3)]
+        private void WithStreet(string street) => Street = street;
 
-            [FluentMethod(4)]
-            [FluentBreak]
-            private void InCity(string city)
-            {
-                City = city;
-            }
+        [FluentMethod(4)]
+        [FluentBreak]
+        private void InCity(string city) => City = city;
 
         [FluentMethod(1)]
         [FluentContinueWith(5)]
-        private void WhoIsADigitalNomad()
-        {
-            IsDigitalNomad = true;
-        }
+        private void WhoIsADigitalNomad() => IsDigitalNomad = true;
 
-            [FluentMethod(5)]
-            private void LivingInCity(string city)
-            {
-                City = city;
-            }
+        [FluentMethod(5)]
+        private void LivingInCity(string city) => City = city;
     }
 
     public static class Usage
@@ -199,14 +172,11 @@ namespace PersonExample4
     public class Person
     {
         [FluentMember(0)]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         [FluentMethod(1)]
         [FluentReturn]
-        public string ToJson()
-        {
-            return JsonSerializer.Serialize(this);
-        }
+        public string ToJson() => JsonSerializer.Serialize(this);
     }
 
     public static class Usage
@@ -228,14 +198,14 @@ namespace PersonExample5
     public class Person
     {
         [FluentMember(0)]
-        public string FirstName { get; private set; }
+        public string FirstName { get; }
 
         [FluentMember(1)]
         [FluentSkippable]
-        public string? MiddleName { get; private set; }
+        public string? MiddleName { get; }
 
         [FluentMember(2)]
-        public string LastName { get; private set; }
+        public string LastName { get; }
     }
 
     public static class Usage

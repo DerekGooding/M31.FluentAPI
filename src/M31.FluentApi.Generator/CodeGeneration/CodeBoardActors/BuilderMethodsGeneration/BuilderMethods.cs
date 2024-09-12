@@ -21,10 +21,7 @@ internal class BuilderMethods
     {
         List<BuilderInterface> interfaces = new List<BuilderInterface>();
 
-        IGrouping<string, InterfaceBuilderMethod>[] methodsGroupedByInterface =
-            interfaceMethods.GroupBy(m => m.InterfaceName).ToArray();
-
-        foreach (IGrouping<string, InterfaceBuilderMethod> group in methodsGroupedByInterface)
+        foreach (IGrouping<string, InterfaceBuilderMethod> group in interfaceMethods.GroupBy(m => m.InterfaceName).ToArray())
         {
             if (cancellationToken.IsCancellationRequested)
             {

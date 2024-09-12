@@ -1,4 +1,3 @@
-using M31.FluentApi.Generator.Commons;
 using M31.FluentApi.Generator.SourceGenerators.Collections;
 using Microsoft.CodeAnalysis;
 
@@ -31,25 +30,16 @@ internal class MemberSymbolInfo : FluentApiSymbolInfo
     internal CollectionType? CollectionType { get; }
 
     protected bool Equals(MemberSymbolInfo other)
-    {
-        return base.Equals(other) && Type == other.Type && TypeForCodeGeneration == other.TypeForCodeGeneration &&
+        => base.Equals(other) && Type == other.Type && TypeForCodeGeneration == other.TypeForCodeGeneration &&
                IsNullable == other.IsNullable && IsProperty == other.IsProperty &&
                Equals(CollectionType, other.CollectionType);
-    }
 
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((MemberSymbolInfo)obj);
-    }
+    public override bool Equals(object? obj) 
+        => obj is not null && (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((MemberSymbolInfo)obj)));
 
-    public override int GetHashCode()
-    {
-        return new HashCode()
+    public override int GetHashCode() 
+        => new HashCode()
             .Add(base.GetHashCode(), Type, TypeForCodeGeneration)
             .Add(IsNullable, IsProperty)
             .Add(CollectionType);
-    }
 }

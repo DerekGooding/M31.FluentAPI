@@ -1,9 +1,8 @@
 using M31.FluentApi.Generator.CodeBuilding;
-using M31.FluentApi.Generator.Commons;
 
 namespace M31.FluentApi.Generator.CodeGeneration.CodeBoardElements;
 
-internal class ParameterIdentity
+internal sealed class ParameterIdentity
 {
     private ParameterIdentity(string? nonGenericParameterType, int? genericTypeParameterPosition, bool hasModifier)
     {
@@ -31,25 +30,13 @@ internal class ParameterIdentity
     internal int? GenericTypeParameterPosition { get; }
     internal bool HasModifier { get; }
 
-    protected bool Equals(ParameterIdentity other)
-    {
-        return NonGenericParameterType == other.NonGenericParameterType &&
+    internal bool Equals(ParameterIdentity other) => NonGenericParameterType == other.NonGenericParameterType &&
                GenericTypeParameterPosition == other.GenericTypeParameterPosition &&
                HasModifier == other.HasModifier;
-    }
 
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((ParameterIdentity)obj);
-    }
+    public override bool Equals(object? obj) => obj is not null && (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((ParameterIdentity)obj)));
 
-    public override int GetHashCode()
-    {
-        return new HashCode().Add(NonGenericParameterType, GenericTypeParameterPosition, HasModifier);
-    }
+    public override int GetHashCode() => new HashCode().Add(NonGenericParameterType, GenericTypeParameterPosition, HasModifier);
 
     public override string ToString()
     {

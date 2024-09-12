@@ -17,10 +17,10 @@ namespace BasicExample
     public class Student
     {
         [FluentMember(0)]
-        public string FirstName { get; private set; }
+        public string FirstName { get; }
 
         [FluentMember(1)]
-        public string LastName { get; private set; }
+        public string LastName { get; }
     }
 
     public static class Usage
@@ -48,10 +48,10 @@ namespace CustomNamesExample
     public class Student
     {
         [FluentMember(0, "WhoseFirstNameIs")]
-        public string FirstName { get; private set; }
+        public string FirstName { get; }
 
         [FluentMember(1, "WhoseLastNameIs")]
-        public string LastName { get; private set; }
+        public string LastName { get; }
     }
 
     public static class Usage
@@ -73,10 +73,10 @@ namespace CompoundExample
     public class Student
     {
         [FluentMember(0, "Named", 0)]
-        public string FirstName { get; private set; }
+        public string FirstName { get; }
 
         [FluentMember(0, "Named", 1)]
-        public string LastName { get; private set; }
+        public string LastName { get; }
     }
 
     public static class Usage
@@ -98,10 +98,10 @@ namespace ForkExample
     public class Student
     {
         [FluentMember(0, "Named", 0)]
-        public string FirstName { get; private set; }
+        public string FirstName { get; }
 
         [FluentMember(0, "Named", 1)]
-        public string LastName { get; private set; }
+        public string LastName { get; }
 
         [FluentMember(1, "OfAge")]
         public int Age { get; private set; }
@@ -144,13 +144,13 @@ namespace SpecialMembersExample
     public class Student
     {
         [FluentMember(0)]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         [FluentPredicate(1, "WhoIsHappy", "WhoIsSad")]
-        public bool IsHappy { get; private set; }
+        public bool IsHappy { get; }
 
         [FluentCollection(3, "Friend")]
-        public IReadOnlyCollection<string> Friends { get; private set; }
+        public IReadOnlyCollection<string> Friends { get; }
     }
 
     public static class Usage
@@ -159,7 +159,7 @@ namespace SpecialMembersExample
         {
             Student student1 = CreateStudent.WithName("Alice").WhoIsHappy().WithFriends("Bob", "Carol", "Eve");
             Student student2 = CreateStudent.WithName("Bob").WhoIsHappy()
-                .WithFriends(new List<string> { "Alice", "Charlie", "David" });
+                .WithFriends(["Alice", "Charlie", "David"]);
             Student student3 = CreateStudent.WithName("Eve").WhoIsSad().WithFriend("Alice");
             Student student4 = CreateStudent.WithName("Frank").WhoIsSad().WithZeroFriends();
         }
@@ -180,16 +180,16 @@ namespace OrthogonalAttributesExample
     {
         [FluentMember(0, "InSemester")]
         [FluentDefault("WhoStartsUniversity")]
-        public int Semester { get; private set; } = 0;
+        public int Semester { get; } = 0;
 
         [FluentMember(1, "LivingIn")]
         [FluentDefault("LivingInBoston")]
         [FluentNullable("InUnknownCity")]
-        public string? City { get; private set; } = "Boston";
+        public string? City { get; } = "Boston";
 
         [FluentCollection(2, "Friend", "WhoseFriendsAre", "WhoseFriendIs", "WhoHasNoFriends")]
         [FluentNullable("WhoseFriendsAreUnknown")]
-        public IReadOnlyCollection<string>? Friends { get; private set; }
+        public IReadOnlyCollection<string>? Friends { get; }
     }
 
     public static class Usage
@@ -216,27 +216,18 @@ namespace FluentMethodExample
     public class Student
     {
         [FluentMember(0)]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public IReadOnlyCollection<string> Friends { get; private set; }
 
         [FluentMethod(1)]
-        private void AndFriends(IEnumerable<string> friends)
-        {
-            Friends = friends.ToHashSet(StringComparer.CurrentCultureIgnoreCase);
-        }
+        private void AndFriends(IEnumerable<string> friends) => Friends = friends.ToHashSet(StringComparer.CurrentCultureIgnoreCase);
 
         [FluentMethod(1)]
-        private void AndFriend(string friend)
-        {
-            Friends = new string[] { friend };
-        }
+        private void AndFriend(string friend) => Friends = [friend];
 
         [FluentMethod(2)]
-        private void GreetFriends()
-        {
-            Console.WriteLine($"Good to see you {string.Join(", ", Friends)}!");
-        }
+        private void GreetFriends() => Console.WriteLine($"Good to see you {string.Join(", ", Friends)}!");
     }
 
     public static class Usage
@@ -261,10 +252,10 @@ namespace FullExample
     public class Student
     {
         [FluentMember(0, "Named", 0)]
-        public string FirstName { get; private set; }
+        public string FirstName { get; }
 
         [FluentMember(0, "Named", 1)]
-        public string LastName { get; private set; }
+        public string LastName { get; }
 
         [FluentMember(1, "OfAge")]
         public int Age { get; private set; }
@@ -280,19 +271,19 @@ namespace FullExample
 
         [FluentMember(2, "InSemester")]
         [FluentDefault("WhoStartsUniversity")]
-        public int Semester { get; private set; } = 0;
+        public int Semester { get; } = 0;
 
         [FluentMember(3, "LivingIn")]
         [FluentDefault("LivingInBoston")]
         [FluentNullable("InUnknownCity")]
-        public string? City { get; private set; } = "Boston";
+        public string? City { get; } = "Boston";
 
         [FluentPredicate(4, "WhoIsHappy", "WhoIsSad")]
         [FluentNullable("WithUnknownMood")]
         public bool? IsHappy { get; private set; }
 
         [FluentCollection(5, "Friend", "WhoseFriendsAre", "WhoseFriendIs", "WhoHasNoFriends")]
-        public IReadOnlyCollection<string> Friends { get; private set; }
+        public IReadOnlyCollection<string> Friends { get; }
     }
 
     public static class Usage
@@ -328,26 +319,26 @@ namespace NestedFluentApis
     public class Student
     {
         [FluentMember(0, "Named", 0)]
-        public string FirstName { get; private set; }
+        public string FirstName { get; }
 
         [FluentMember(0, "Named", 1)]
-        public string LastName { get; private set; }
+        public string LastName { get; }
 
         [FluentMember(1)]
-        public Address Address { get; private set; }
+        public Address Address { get; }
     }
 
     [FluentApi]
     public class Employee
     {
         [FluentMember(0, "Named", 0)]
-        public string FirstName { get; private set; }
+        public string FirstName { get; }
 
         [FluentMember(0, "Named", 1)]
-        public string LastName { get; private set; }
+        public string LastName { get; }
 
         [FluentCollection(1, "Address")]
-        public IReadOnlyCollection<Address> Addresses { get; private set; }
+        public IReadOnlyCollection<Address> Addresses { get; }
     }
 
     [FluentApi]
@@ -365,13 +356,13 @@ namespace NestedFluentApis
         }
 
         [FluentMember(0)]
-        public string HouseNumber { get; private set; }
+        public string HouseNumber { get; }
 
         [FluentMember(1)]
-        public string Street { get; private set; }
+        public string Street { get; }
 
         [FluentMember(2, "InCity")]
-        public string City { get; private set; }
+        public string City { get; }
     }
 
     public static class Usage

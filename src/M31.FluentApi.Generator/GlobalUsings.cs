@@ -1,0 +1,1 @@
+﻿global using HashCode = M31.FluentApi.Generator.Commons.HashCode;

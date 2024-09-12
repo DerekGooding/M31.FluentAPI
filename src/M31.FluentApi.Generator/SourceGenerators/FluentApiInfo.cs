@@ -1,5 +1,4 @@
 using M31.FluentApi.Generator.CodeGeneration.CodeBoardElements;
-using M31.FluentApi.Generator.Commons;
 using M31.FluentApi.Generator.SourceGenerators.AttributeInfo;
 
 namespace M31.FluentApi.Generator.SourceGenerators;

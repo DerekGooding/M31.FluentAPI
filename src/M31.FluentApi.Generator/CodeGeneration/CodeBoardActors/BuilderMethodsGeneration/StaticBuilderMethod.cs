@@ -8,10 +8,7 @@ namespace M31.FluentApi.Generator.CodeGeneration.CodeBoardActors.BuilderMethodsG
 internal class StaticBuilderMethod : BuilderStepMethod
 {
     internal StaticBuilderMethod(BuilderMethod builderMethod, string returnType)
-        : base(builderMethod)
-    {
-        ReturnType = returnType;
-    }
+        : base(builderMethod) => ReturnType = returnType;
 
     internal string ReturnType { get; }
 

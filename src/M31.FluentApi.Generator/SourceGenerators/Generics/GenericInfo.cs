@@ -1,4 +1,3 @@
-using M31.FluentApi.Generator.Commons;
 using Microsoft.CodeAnalysis;
 
 namespace M31.FluentApi.Generator.SourceGenerators.Generics;

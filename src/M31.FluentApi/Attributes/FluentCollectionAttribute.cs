@@ -24,6 +24,5 @@ public class FluentCollectionAttribute : Attribute
         string withItem = "With{SingularName}",
         string withZeroItems = "WithZero{Name}")
     {
-
     }
 }

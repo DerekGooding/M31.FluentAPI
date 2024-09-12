@@ -1,10 +1,9 @@
 using M31.FluentApi.Generator.CodeBuilding;
-using M31.FluentApi.Generator.Commons;
 using M31.FluentApi.Generator.SourceGenerators.Generics;
 
 namespace M31.FluentApi.Generator.CodeGeneration.CodeBoardElements;
 
-internal class MethodIdentity
+internal sealed class MethodIdentity
 {
     private MethodIdentity(
         string methodName,
@@ -20,10 +19,7 @@ internal class MethodIdentity
     internal int NumberOfTypeParameters { get; }
     internal IReadOnlyCollection<ParameterIdentity> ParameterIdentities { get; }
 
-    internal static MethodIdentity Create(string methodName)
-    {
-        return new MethodIdentity(methodName, 0, Array.Empty<ParameterIdentity>());
-    }
+    internal static MethodIdentity Create(string methodName) => new MethodIdentity(methodName, 0, Array.Empty<ParameterIdentity>());
 
     internal static MethodIdentity Create(MethodSymbolInfo methodSymbolInfo)
     {
@@ -51,34 +47,22 @@ internal class MethodIdentity
         GenericInfo? genericInfo,
         IReadOnlyCollection<ParameterIdentity> parameterIdentities)
     {
-        int numberOfTypeParameters = genericInfo == null ? 0 : genericInfo.Parameters.Count;
+        int numberOfTypeParameters = genericInfo?.Parameters.Count ?? 0;
         return new MethodIdentity(methodName, numberOfTypeParameters, parameterIdentities);
     }
 
-    protected bool Equals(MethodIdentity other)
-    {
-        return MethodName == other.MethodName &&
+    internal bool Equals(MethodIdentity other)
+        => MethodName == other.MethodName &&
                NumberOfTypeParameters == other.NumberOfTypeParameters &&
                ParameterIdentities.SequenceEqual(other.ParameterIdentities);
-    }
 
     public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((MethodIdentity)obj);
-    }
+        => obj is not null && (ReferenceEquals(this, obj) || (obj.GetType() == GetType() && Equals((MethodIdentity)obj)));
 
     public override int GetHashCode()
-    {
-        return new HashCode()
+        => new HashCode()
             .Add(MethodName, NumberOfTypeParameters)
             .AddSequence(ParameterIdentities);
-    }
 
-    public override string ToString()
-    {
-        return $"{MethodName}<{NumberOfTypeParameters}>({string.Join(", ", ParameterIdentities)})";
-    }
+    public override string ToString() => $"{MethodName}<{NumberOfTypeParameters}>({string.Join(", ", ParameterIdentities)})";
 }
